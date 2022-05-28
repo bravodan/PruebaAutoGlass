@@ -1,6 +1,5 @@
 ﻿using Domain.Enums;
 using System;
-using System.Collections.Generic;
 
 namespace Domain.Entities
 {
@@ -11,7 +10,8 @@ namespace Domain.Entities
         public EProductStatus ProductStatus { get; protected set; }
         public DateTime? ManufacturingDate { get; protected set; }
         public DateTime? ValidityDate { get; protected set; }
-        public List<ProductSupplier> ProductSupplierList { get; set; }
+        public string SuppId { get; protected set; }
+        public Supplier Supplier { get; protected set; }
 
 
     }

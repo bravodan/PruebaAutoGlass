@@ -23,7 +23,7 @@ namespace Services.EventHandlers
         {
             SupplierView objSupplierAdded = null;
             Supplier objSupplierToAdd = _mapper.Map<SupplierView, Supplier>(request.objSupplier);
-            if (_unitOfWork.SupplierRepository.GetById(request.objSupplier.id) == null)
+            if (_unitOfWork.SupplierRepository.GetById(request.objSupplier.Id) == null)
             {
                 objSupplierAdded = _mapper.Map<Supplier, SupplierView>(_unitOfWork.SupplierRepository.Add(objSupplierToAdd));
                 _unitOfWork.Complete();

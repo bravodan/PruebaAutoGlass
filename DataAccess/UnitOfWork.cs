@@ -13,14 +13,12 @@ namespace DataAccess
             _context = context;
             SupplierRepository = new SupplierRepository(_context);
             ProductItemRepository = new ProductItemRepository(_context);
-            ProductSupplierRepository = new ProductSupplierRepository(_context);
         }
 
         public ISupplierRepository SupplierRepository { get; private set; }
 
         public IProductItemRepository ProductItemRepository { get; private set; }
 
-        public IProductSupplierRepository ProductSupplierRepository { get; private set; }
 
         public int Complete()
         {

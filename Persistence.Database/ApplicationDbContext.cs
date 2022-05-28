@@ -7,7 +7,6 @@ namespace Persistence.Database
     public class ApplicationDbContext : DbContext
     {
         public DbSet<ProductItem> Products { get; set; }
-        public DbSet<ProductSupplier> ProductsSuppliers { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions) : base(dbContextOptions)
         {

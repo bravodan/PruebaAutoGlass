@@ -23,24 +23,15 @@ namespace Services.EventHandlers
 
         public async Task<ProductItemCreateResponse> Handle(AddProductItemCommand request, CancellationToken cancellationToken)
         {
-            ProductItem objProductItemAdded = null;
+            ProductItem objProductItemAdded;
 
-            Supplier objSupplier = _unitOfWork.SupplierRepository.GetById(request.objProductItem.CurrentSupplierId);
+            Supplier objSupplier = _unitOfWork.SupplierRepository.GetById(request.objProductItem.SupplierId);
             if (objSupplier != null)
             {
-                ProductItem objProductItemToAdd = _mapper.Map<ProductItemCreateView, ProductItem>(request.objProductItem);
+                ProductItem objProductItemToAdd = new ProductItem(request.objProductItem.Description, request.objProductItem.ManufacturingDate, request.objProductItem.ValidityDate, objSupplier);
                 objProductItemToAdd.ActiveProductState();
                 objProductItemAdded = _unitOfWork.ProductItemRepository.Add(objProductItemToAdd);
                 _unitOfWork.Complete();
-                if (objProductItemAdded != null)
-                {
-                    _unitOfWork.ProductSupplierRepository.Add(new ProductSupplier(objProductItemAdded.Id, objSupplier.id, DateTime.Now, null));
-                    _unitOfWork.Complete();
-                }
-                else
-                {
-                    throw new Exception("An error was ocurred saving the product item.");
-                }
 
             }
             else

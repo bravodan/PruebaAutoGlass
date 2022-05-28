@@ -3,8 +3,8 @@ namespace Models.DTO
 {
     public class SupplierView
     {
-        public string id { get; set; }
-        public string description { get; set; }
-        public string phoneNumber { get; set; }
+        public string Id { get; set; }
+        public string Description { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

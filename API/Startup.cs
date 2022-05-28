@@ -37,10 +37,16 @@ namespace API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
 
+            #region NewtonSoft
+            services.AddControllers().AddNewtonsoftJson();
+            #endregion
+
+            #region FluentValidation
             services.AddMvc(opt =>
             {
                 opt.Filters.Add(typeof(ValidatorActionFilter));
             }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+            #endregion
 
             #region Cors
             services.AddCors(options =>
@@ -74,12 +80,15 @@ namespace API
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<ISupplierRepository, SupplierRepository>();
             services.AddTransient<IProductItemRepository, ProductItemRepository>();
-            services.AddTransient<IProductSupplierRepository, ProductSupplierRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             #endregion
 
 
-            services.AddDbContext<ApplicationDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("database")));
+            services.AddDbContext<ApplicationDbContext>(opts =>
+            {
+                opts.UseSqlServer(Configuration.GetConnectionString("database"));
+                opts.EnableSensitiveDataLogging();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

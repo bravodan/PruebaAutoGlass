@@ -7,7 +7,6 @@ namespace Domain.UnitOfWork
     {
         ISupplierRepository SupplierRepository { get; }
         IProductItemRepository ProductItemRepository { get; }
-        IProductSupplierRepository ProductSupplierRepository { get; }
         int Complete();
     }
 }

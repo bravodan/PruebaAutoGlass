@@ -25,15 +25,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{26
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{09BF632A-2BA8-4DAD-A21F-CF1C151DB0B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models.DTO", "Models.DTO\Models.DTO.csproj", "{92096D73-1465-499A-9B48-88BCBE852D23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models.DTO", "Models.DTO\Models.DTO.csproj", "{92096D73-1465-499A-9B48-88BCBE852D23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{C461D470-D0B0-491B-BB6D-25EC90C5FFE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{C461D470-D0B0-491B-BB6D-25EC90C5FFE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{F9BA2386-EC76-4090-B64C-DE5355185C0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{F9BA2386-EC76-4090-B64C-DE5355185C0B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mapper", "Mapper", "{CB074EA3-6BC4-457A-8B97-50CB8BA6A7E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapper.Automapper", "AutoMapper\Mapper.Automapper.csproj", "{95B2D05B-2210-4467-8D69-28813F56F36C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mapper.Automapper", "AutoMapper\Mapper.Automapper.csproj", "{95B2D05B-2210-4467-8D69-28813F56F36C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

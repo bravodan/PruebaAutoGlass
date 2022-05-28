@@ -10,7 +10,6 @@ namespace Models.DTO
         public EProductStatus ProductStatus { get; set; }
         public DateTime? ManufacturingDate { get; set; }
         public DateTime? ValidityDate { get; set; }
-        public string CurrentSupplierId { get; set; }
-        public SupplierView ObjNewSupplier { get; set; }
+        public string SupplierId { get; set; }
     }
 }

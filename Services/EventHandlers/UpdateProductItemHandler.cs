@@ -2,7 +2,6 @@
 using Domain.Entities;
 using Domain.UnitOfWork;
 using MediatR;
-using Models.DTO;
 using Services.Commands;
 using System;
 using System.Threading;
@@ -13,32 +12,32 @@ namespace Services.EventHandlers
     public class UpdateProductItemHandler : IRequestHandler<UpdateProductItemCommand, Unit>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        public UpdateProductItemHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public UpdateProductItemHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         public async Task<Unit> Handle(UpdateProductItemCommand request, CancellationToken cancellationToken)
         {
             ProductItem objProduct = _unitOfWork.ProductItemRepository.GetById(request.bodyRequest.Id);
             if (objProduct != null)
-            {;
-                if (request.bodyRequest.CurrentSupplierId != null && request.bodyRequest.CurrentSupplierId.Trim(' ') != "" && !Equals(request.bodyRequest.ObjNewSupplier, null))
+            {
+                Supplier objSupplier = _unitOfWork.SupplierRepository.GetById(request.bodyRequest.SupplierId);
+                if (objSupplier == null)
                 {
-                    objProduct.Update(request.bodyRequest.Description, request.bodyRequest.ProductStatus, request.bodyRequest.ManufacturingDate, request.bodyRequest.ValidityDate,
-                        request.bodyRequest.CurrentSupplierId, _mapper.Map<SupplierView, Supplier>(request.bodyRequest.ObjNewSupplier));
+                    throw new Exception("El nuevo proveedor no existe");
                 }
-                else
-                {
-                    objProduct.Update(request.bodyRequest.Description, request.bodyRequest.ProductStatus, request.bodyRequest.ManufacturingDate, request.bodyRequest.ValidityDate);
-                }
+                objProduct.Update(request.bodyRequest.Description, request.bodyRequest.ProductStatus, request.bodyRequest.ManufacturingDate, request.bodyRequest.ValidityDate, objSupplier);
+                _unitOfWork.ProductItemRepository.Update(objProduct);
                 int varResult = _unitOfWork.Complete();
                 if (varResult <= 0)
                 {
                     throw new Exception("No se guardó la información en la base de datos");
                 }
+            }
+            else
+            {
+                throw new Exception("El producto no existe");
             }
             return Unit.Value;
         }

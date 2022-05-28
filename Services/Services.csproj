@@ -10,10 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Queries\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\AutoMapper\Mapper.Automapper.csproj" />
     <ProjectReference Include="..\Models.DTO\Models.DTO.csproj" />
   </ItemGroup>

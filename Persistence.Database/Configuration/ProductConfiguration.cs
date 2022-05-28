@@ -11,7 +11,8 @@ namespace Persistence.Database.Configuration
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
             builder.Property(p => p.Description).IsRequired(true);
             builder.Property(p => p.ProductStatus).IsRequired(true);
-            
+            builder.HasOne(p => p.Supplier).WithMany(s => s.ProductItemList).IsRequired();
+            builder.Navigation(p => p.Supplier).UsePropertyAccessMode(PropertyAccessMode.Property);
         }
     }
 }

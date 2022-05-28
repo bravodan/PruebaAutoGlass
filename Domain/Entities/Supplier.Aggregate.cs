@@ -11,9 +11,9 @@ namespace Domain.Entities
 
         public void Update(string id, string description, string phoneNumber)
         {
-            this.id = id;
-            this.description = description;
-            this.phoneNumber = phoneNumber;
+            this.Id = id;
+            this.Description = description;
+            this.PhoneNumber = phoneNumber;
         }
     }
 }

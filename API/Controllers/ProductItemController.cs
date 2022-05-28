@@ -1,8 +1,10 @@
-﻿using MediatR;
+﻿using Domain.QueryParams;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTO;
+using Newtonsoft.Json;
 using Services.Commands;
-using System.Collections.Generic;
+using Services.Queries;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -21,16 +23,45 @@ namespace API.Controllers
         }
         // GET: api/<OrderController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetAsync([FromQuery] ProductItemParameters parameters)
         {
-            return new string[] { "value1", "value2" };
+            if (!parameters.MaxManufacturingYear.Equals(0) && !parameters.MinManufacturingYear.Equals(0))
+            {
+                if (!parameters.getValidDateRange())
+                {
+                    return BadRequest("La fecha máxima de fabricación es mayor a la fecha mínima");
+                }
+            }
+
+            var products = await _mediator.Send(new GetAllProductItemsQuery(parameters));
+            var metadata = new
+            {
+                products.TotalCount,
+                products.PageSize,
+                products.CurrentPage,
+                products.TotalPages,
+                products.HasNext,
+                products.HasPrevious
+            };
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+            return Ok(products);
         }
 
         // GET api/<OrderController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<ProductItemGetResponse>> Get(int id)
         {
-            return "value";
+            if (ModelState.IsValid)
+            {
+                ProductItemGetResponse objSupplierAdded = await _mediator.Send(new GetProductItemQuery(id));
+                if (objSupplierAdded == null)
+                {
+                    return BadRequest();
+                }
+
+                return new ActionResult<ProductItemGetResponse>(objSupplierAdded);
+            }
+            return BadRequest();
         }
 
         // POST api/<OrderController>
@@ -48,13 +79,11 @@ namespace API.Controllers
                 return new ActionResult<ProductItemCreateResponse>(objSupplierAdded);
             }
             return BadRequest();
-        
+
         }
 
-        
-
-        // PUT api/<OrderController>/5
-        [HttpPut("{productId}")]
+        // PUT api/<OrderController>
+        [HttpPut]
         public async Task<ActionResult> PutAsync([FromBody] ProductItemUpdateView productItem)
         {
             if (ModelState.IsValid)
@@ -65,10 +94,16 @@ namespace API.Controllers
             return BadRequest();
         }
 
-        // DELETE api/<OrderController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/<OrderController>
+        [HttpDelete]
+        public async Task<ActionResult> Delete(int id)
         {
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new DeleteProductItemCommand(id));
+                return Ok();
+            }
+            return BadRequest();
         }
     }
 }

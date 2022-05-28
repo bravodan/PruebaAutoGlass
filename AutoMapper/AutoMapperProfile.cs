@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Pagination;
 using Models.DTO;
 
 namespace AutoMapper
@@ -14,11 +15,11 @@ namespace AutoMapper
         {
             //Supplier
             CreateMap<Supplier, SupplierView>()
-                .ForMember(dest => dest.description, opt => opt.MapFrom(src => src.description))
-                .ForMember(dest => dest.id, opt => opt.MapFrom(src => src.id))
-                .ForMember(dest => dest.phoneNumber, opt => opt.MapFrom(src => src.phoneNumber));
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber));
             CreateMap<SupplierView, Supplier>()
-                .ForMember(dest => dest.ProductSupplierList, opt => opt.Ignore());
+                .ForMember(dest => dest.ProductItemList, opt => opt.Ignore());
 
             //ProductItemCreateView
             CreateMap<ProductItem, ProductItemCreateView>()
@@ -29,7 +30,7 @@ namespace AutoMapper
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.ManufacturingDate, opt => opt.MapFrom(src => src.ManufacturingDate))
                 .ForMember(dest => dest.ValidityDate, opt => opt.MapFrom(src => src.ValidityDate))
-                .ForMember(dest => dest.ProductSupplierList, opt => opt.Ignore());
+                .ForMember(dest => dest.Supplier, opt => opt.Ignore());
 
             //ProductItemCreateResponse
             CreateMap<ProductItem, ProductItemCreateResponse>()
@@ -38,14 +39,23 @@ namespace AutoMapper
                 .ForMember(dest => dest.ProductStatus, opt => opt.MapFrom(src => src.ProductStatus))
                 .ForMember(dest => dest.ManufacturingDate, opt => opt.MapFrom(src => src.ManufacturingDate))
                 .ForMember(dest => dest.ValidityDate, opt => opt.MapFrom(src => src.ValidityDate))
-                .ForMember(dest => dest.CurrentSupplierId, opt => opt.MapFrom(src => src.getCurrentSupplierId()));
+                .ForMember(dest => dest.SupplierId, opt => opt.MapFrom(src => src.SuppId));
             CreateMap<ProductItemCreateResponse, ProductItem>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ProductStatus, opt => opt.MapFrom(src => src.ProductStatus))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.ManufacturingDate, opt => opt.MapFrom(src => src.ManufacturingDate))
                 .ForMember(dest => dest.ValidityDate, opt => opt.MapFrom(src => src.ValidityDate))
-                .ForMember(dest => dest.ProductSupplierList, opt => opt.Ignore());
+                .ForMember(dest => dest.Supplier, opt => opt.Ignore());
+
+            //ProductItemGet
+            CreateMap<ProductItem, ProductItemGetResponse>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.ProductStatus, opt => opt.MapFrom(src => src.ProductStatus))
+                .ForMember(dest => dest.ManufacturingDate, opt => opt.MapFrom(src => src.ManufacturingDate))
+                .ForMember(dest => dest.ValidityDate, opt => opt.MapFrom(src => src.ValidityDate))
+                .ForMember(dest => dest.Supplier, opt => opt.MapFrom(src => src.Supplier));
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Domain.Enums;
-using System;
+﻿using System;
 
 namespace Models.DTO
 {
@@ -8,6 +7,6 @@ namespace Models.DTO
         public string Description { get; set; }
         public DateTime? ManufacturingDate { get; set; }
         public DateTime? ValidityDate { get; set; }
-        public string CurrentSupplierId { get; set; }
+        public string SupplierId { get; set; }
     }
 }

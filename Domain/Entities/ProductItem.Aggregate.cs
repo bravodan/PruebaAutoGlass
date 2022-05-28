@@ -6,57 +6,71 @@ namespace Domain.Entities
     public partial class ProductItem
     {
 
-        public ProductItem(long id, string description, DateTime? manufacturingDate, DateTime? validityDate)
+        public ProductItem(string description, DateTime? manufacturingDate, DateTime? validityDate, Supplier supplier)
         {
-            Id = id;
             Description = description;
             ProductStatus = EProductStatus.inactivo;
             ManufacturingDate = manufacturingDate;
             ValidityDate = validityDate;
+            SuppId = supplier.Id;
+            Supplier = Supplier;
         }
 
         public ProductItem()
         {
         }
 
-        public void Update(string description, EProductStatus productState, DateTime? manufacturingDate, DateTime? validityDate)
+        public void Update(string description, EProductStatus productStatus, DateTime? manufacturingDate, DateTime? validityDate, Supplier supplier)
         {
-            if (manufacturingDate >= validityDate)
+            if (manufacturingDate != null && validityDate != null)
             {
-                throw new Exception("La fecha de fabricación debe ser menor a la de vencimiento");
+                if (manufacturingDate >= validityDate)
+                {
+                    throw new Exception("La fecha de fabricación debe ser menor a la de vencimiento");
+                }
             }
-            Description = description;
-            ProductStatus = productState;
             ManufacturingDate = manufacturingDate;
             ValidityDate = validityDate;
+            ProductStatus = productStatus;
+            Description = description;
+            SuppId = supplier.Id;
+            Supplier = supplier;
         }
 
-        public void Update(string description, EProductStatus productState, DateTime? manufacturingDate, DateTime? validityDate, string oldSupplierId, Supplier objNewSupplier)
+        public Supplier getSupplier()
+        {
+            return Supplier;
+        }
+
+        /*public void Update(string description, EProductStatus productState, DateTime? manufacturingDate, DateTime? validityDate, string oldSupplierId, string newSupplierId)
         {
             Update(description, productState, manufacturingDate, validityDate);
-            UpdateProductSupplierList(oldSupplierId, objNewSupplier);
+            UpdateProductSupplierList(oldSupplierId, newSupplierId);
         }
 
 
-        public void UpdateProductSupplierList(string oldSupplierId, Supplier newSupplier)
+        public void UpdateProductSupplierList(string oldSupplierId, string newSupplierId)
         {
-            ProductSupplier objProductSupplierToAdd = new ProductSupplier(Id, newSupplier.id, DateTime.Now, null);
             if (oldSupplierId != null)
             {
-                foreach (var objProductSupplier in ProductSupplierList)
+                if (ProductSupplierList != null)
                 {
-                    if (objProductSupplier.SuppId == oldSupplierId)
+                    foreach (var objProductSupplier in ProductSupplierList)
                     {
-                        objProductSupplier.Update(objProductSupplier.ProdId, objProductSupplier.SuppId, objProductSupplier.StartDate, DateTime.Now);
+                        if (objProductSupplier.SuppId == oldSupplierId)
+                        {
+                            objProductSupplier.Update(DateTime.Now);
+                        }
                     }
                 }
             }
+            ProductSupplier objProductSupplierToAdd = new ProductSupplier(Id, newSupplierId, DateTime.Now, null);
             ProductSupplierList.Add(objProductSupplierToAdd);
-        }
+        }*/
 
         public string getCurrentSupplierId()
         {
-            return ProductSupplierList.Find(x=>x.EndDate==null).SuppId;
+            return Supplier.Id;
         }
 
         public void ActiveProductState()

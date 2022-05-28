@@ -39,76 +39,47 @@ namespace Persistence.Database.Migrations
                     b.Property<DateTime?>("ValidityDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("suppId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("suppId");
 
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ProductSupplier", b =>
-                {
-                    b.Property<long>("ProdId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("SuppId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ProdId", "SuppId", "StartDate");
-
-                    b.HasIndex("SuppId");
-
-                    b.ToTable("ProductsSuppliers");
-                });
-
             modelBuilder.Entity("Domain.Entities.Supplier", b =>
                 {
-                    b.Property<string>("id")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("description")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("phoneNumber")
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ProductSupplier", b =>
+            modelBuilder.Entity("Domain.Entities.ProductItem", b =>
                 {
-                    b.HasOne("Domain.Entities.ProductItem", "ProductItem")
-                        .WithMany("ProductSupplierList")
-                        .HasForeignKey("ProdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Supplier", "Supplier")
-                        .WithMany("ProductSupplierList")
-                        .HasForeignKey("SuppId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithMany("ProductItemList")
+                        .HasForeignKey("suppId")
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
-
-                    b.Navigation("ProductItem");
 
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ProductItem", b =>
-                {
-                    b.Navigation("ProductSupplierList");
-                });
-
             modelBuilder.Entity("Domain.Entities.Supplier", b =>
                 {
-                    b.Navigation("ProductSupplierList");
+                    b.Navigation("ProductItemList");
                 });
 #pragma warning restore 612, 618
         }
