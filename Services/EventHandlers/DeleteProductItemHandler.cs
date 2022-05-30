@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Services.EventHandlers
 {
-    class DeleteProductItemHandler : IRequestHandler<DeleteProductItemCommand, Unit>
+    public class DeleteProductItemHandler : IRequestHandler<DeleteProductItemCommand, Unit>
     {
         private readonly IUnitOfWork _unitOfWork;
         public DeleteProductItemHandler(IUnitOfWork unitOfWork)
@@ -27,6 +27,10 @@ namespace Services.EventHandlers
                     objProductItem.DeactiveProductState();
                     _unitOfWork.ProductItemRepository.Update(objProductItem);
                     _unitOfWork.Complete();
+                }
+                else
+                {
+                    throw new Exception("Producto eliminado con anterioridad");
                 }
             }
             else

@@ -8,6 +8,10 @@ namespace Domain.Entities
 
         public ProductItem(string description, DateTime? manufacturingDate, DateTime? validityDate, Supplier supplier)
         {
+            if (manufacturingDate > validityDate)
+            {
+                throw new Exception("La fecha de fabricación debe ser menor a la de validez");
+            }
             Description = description;
             ProductStatus = EProductStatus.inactivo;
             ManufacturingDate = manufacturingDate;
@@ -41,32 +45,6 @@ namespace Domain.Entities
         {
             return Supplier;
         }
-
-        /*public void Update(string description, EProductStatus productState, DateTime? manufacturingDate, DateTime? validityDate, string oldSupplierId, string newSupplierId)
-        {
-            Update(description, productState, manufacturingDate, validityDate);
-            UpdateProductSupplierList(oldSupplierId, newSupplierId);
-        }
-
-
-        public void UpdateProductSupplierList(string oldSupplierId, string newSupplierId)
-        {
-            if (oldSupplierId != null)
-            {
-                if (ProductSupplierList != null)
-                {
-                    foreach (var objProductSupplier in ProductSupplierList)
-                    {
-                        if (objProductSupplier.SuppId == oldSupplierId)
-                        {
-                            objProductSupplier.Update(DateTime.Now);
-                        }
-                    }
-                }
-            }
-            ProductSupplier objProductSupplierToAdd = new ProductSupplier(Id, newSupplierId, DateTime.Now, null);
-            ProductSupplierList.Add(objProductSupplierToAdd);
-        }*/
 
         public string getCurrentSupplierId()
         {

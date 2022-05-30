@@ -4,6 +4,7 @@ using Domain.UnitOfWork;
 using MediatR;
 using Models.DTO;
 using Services.Commands;
+using Services.Exceptions.EventHanders;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,18 +26,24 @@ namespace Services.EventHandlers
         {
             ProductItem objProductItemAdded;
 
-            Supplier objSupplier = _unitOfWork.SupplierRepository.GetById(request.objProductItem.SupplierId);
-            if (objSupplier != null)
+            if (request.objProductItem.ManufacturingDate < request.objProductItem.ValidityDate)
             {
-                ProductItem objProductItemToAdd = new ProductItem(request.objProductItem.Description, request.objProductItem.ManufacturingDate, request.objProductItem.ValidityDate, objSupplier);
-                objProductItemToAdd.ActiveProductState();
-                objProductItemAdded = _unitOfWork.ProductItemRepository.Add(objProductItemToAdd);
-                _unitOfWork.Complete();
-
+                Supplier objSupplier = _unitOfWork.SupplierRepository.GetById(request.objProductItem.SupplierId);
+                if (objSupplier != null)
+                {
+                    ProductItem objProductItemToAdd = new ProductItem(request.objProductItem.Description, request.objProductItem.ManufacturingDate, request.objProductItem.ValidityDate, objSupplier);
+                    objProductItemToAdd.ActiveProductState();
+                    objProductItemAdded = _unitOfWork.ProductItemRepository.Add(objProductItemToAdd);
+                    _unitOfWork.Complete();
+                }
+                else
+                {
+                    throw new AddProductItemCommandException("El proveedor no existe");
+                }
             }
             else
             {
-                throw new Exception("El proveedor no existe");
+                throw new AddProductItemCommandException("La fecha de fabricación debe ser menor a la de validez");
             }
             return _mapper.Map<ProductItem, ProductItemCreateResponse>(objProductItemAdded);
         }

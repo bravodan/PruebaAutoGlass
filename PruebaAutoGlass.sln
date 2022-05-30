@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31624.102
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{32BB82F6-C0CC-4994-96BC-EB9CFF1002F5}"
 EndProject
@@ -34,6 +34,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mapper", "Mapper", "{CB074EA3-6BC4-457A-8B97-50CB8BA6A7E8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mapper.Automapper", "AutoMapper\Mapper.Automapper.csproj", "{95B2D05B-2210-4467-8D69-28813F56F36C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{97C0D129-AAE5-4C38-8A92-1C04E66AAE43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{6953157B-E47F-4009-B008-F9E5767BB3E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Exceptions", "Services.Exceptions\Services.Exceptions.csproj", "{A00ACE6A-8DCC-4699-B0FF-EF0F91FB0CDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +79,14 @@ Global
 		{95B2D05B-2210-4467-8D69-28813F56F36C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95B2D05B-2210-4467-8D69-28813F56F36C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95B2D05B-2210-4467-8D69-28813F56F36C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6953157B-E47F-4009-B008-F9E5767BB3E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6953157B-E47F-4009-B008-F9E5767BB3E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6953157B-E47F-4009-B008-F9E5767BB3E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6953157B-E47F-4009-B008-F9E5767BB3E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A00ACE6A-8DCC-4699-B0FF-EF0F91FB0CDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A00ACE6A-8DCC-4699-B0FF-EF0F91FB0CDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A00ACE6A-8DCC-4699-B0FF-EF0F91FB0CDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A00ACE6A-8DCC-4699-B0FF-EF0F91FB0CDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +106,8 @@ Global
 		{F9BA2386-EC76-4090-B64C-DE5355185C0B} = {29C2D630-6BC6-46F2-A9A9-E2022BF9A934}
 		{CB074EA3-6BC4-457A-8B97-50CB8BA6A7E8} = {F88A2BF0-2F6E-4F50-9AA9-5BBB9D6325EB}
 		{95B2D05B-2210-4467-8D69-28813F56F36C} = {CB074EA3-6BC4-457A-8B97-50CB8BA6A7E8}
+		{6953157B-E47F-4009-B008-F9E5767BB3E4} = {97C0D129-AAE5-4C38-8A92-1C04E66AAE43}
+		{A00ACE6A-8DCC-4699-B0FF-EF0F91FB0CDA} = {268E7B9B-1689-486A-9CFE-86653A27C5A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {69DAC826-D754-4DB5-8D32-9EE3EA658FAF}

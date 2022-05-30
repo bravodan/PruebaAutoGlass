@@ -96,7 +96,7 @@ namespace API.Controllers
 
         // DELETE api/<OrderController>
         [HttpDelete]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(long id)
         {
             if (ModelState.IsValid)
             {

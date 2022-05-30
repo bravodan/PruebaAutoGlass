@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AutoMapper\Mapper.Automapper.csproj" />
     <ProjectReference Include="..\Models.DTO\Models.DTO.csproj" />
+    <ProjectReference Include="..\Services.Exceptions\Services.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>

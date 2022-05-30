@@ -32,7 +32,7 @@ namespace DataAccess
 
         public void Detach(T entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            _context.Entry(entity).State = EntityState.Detached;
         }
 
         public IEnumerable<T> Find(Expression<Func<T, bool>> expression)

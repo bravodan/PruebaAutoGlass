@@ -2,5 +2,5 @@
 
 namespace Services.Commands
 {
-    public record DeleteProductItemCommand(int Id) : IRequest;
+    public record DeleteProductItemCommand(long Id) : IRequest;
 }
