@@ -1,4 +1,4 @@
-# 	:nerd_face: :car: :rocket: Prueba Autoglass :nerd_face: :car: :rocket:
+# :rocket: Prueba Autoglass
 
 This project was generated with [.NET WEB API](https://docs.microsoft.com/es-mx/aspnet/core/?view=aspnetcore-6.0) version 5.
 
